@@ -53,6 +53,8 @@ class Data {
   }
 
   static void _mergeOver(Map m1, Map m2) {
+    if(m2 == null)
+      return;
     m2.forEach((String key, dynamic value) {
       if (value is Map && m1[key] is Map) {
         Map v1 = m1[key];
