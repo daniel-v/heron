@@ -13,6 +13,7 @@ dependencies:
   mustache: ^0.2.5
   resource: ^2.1.0
   yaml: ^2.1.12
+  stack_trace: ^1.7.0
 
 dev_dependencies:
   test: ^0.12.18
