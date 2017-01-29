@@ -17,3 +17,4 @@ dependencies:
 
 dev_dependencies:
   test: ^0.12.18
+  scheduled_test: ^0.12.9
