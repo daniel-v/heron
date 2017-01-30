@@ -29,7 +29,7 @@ ScheduledProcess runHeron({Future inDirectory}) {
       workingDirectory: inDirectory, description: 'Executing heron');
 }
 
-_DeferredValue<String> _sandbox;
+Completer<String> _sandbox;
 
 Future<String> get sandboxPath => _sandbox.future;
 
@@ -38,7 +38,7 @@ Future<String> get sandboxPath => _sandbox.future;
 /// if [cleanUpAfterTests] is `false`, the temporary directory created for sandbox
 /// will not be deleted.
 void setupSandbox({bool cleanUpAfterTests: true}) {
-  _sandbox = new _DeferredValue<String>();
+  _sandbox = new Completer<String>();
   schedule(() {
     String path =
         Directory.systemTemp.createTempSync('heron_test_project_').path;
@@ -77,16 +77,4 @@ abstract class EnvVars {
   ///     (export NOCLEANUP="" && pub run test)
   ///
   static bool get NOCLEANUP => Platform.environment['NOCLEANUP'] != null;
-}
-
-/// Simple wrapper around completer
-class _DeferredValue<T> {
-  final Completer<T> _completer = new Completer<T>.sync();
-
-  Future<T> get future => _completer.future;
-
-  Future<T> then(fn(T val), {Function onError}) =>
-      future.then(fn, onError: onError);
-
-  void complete([T value]) => _completer.complete(value);
 }
