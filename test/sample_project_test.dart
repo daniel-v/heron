@@ -15,8 +15,7 @@ void main() {
   setUp(() {
     setupSandbox(cleanUpAfterTests: !EnvVars.NOCLEANUP);
     sampleProject.create();
-    runHeron(inDirectory: sandboxPath)
-      ..shouldExit(0);
+    runHeron(inDirectory: sandboxPath)..shouldExit(0);
     pathConfig = new PathConfig.defaults();
   });
 
@@ -29,17 +28,5 @@ void main() {
   test('contains html-head', () {
     var content = new MarkdownContent.parseSource(indexMd.textContents);
     expect(content.header, isNotNull);
-    print(content.header.asMap);
-//    var lines = indexHtml.textContents;
-//    var a = new md.Document().parseLines(lines);
-//    List<md.Node> nodes = new md.Document()
-//        .parseInline(indexMd.textContents);
-//    print(a);
-//    md.markdownToHtml(indexMd.textContents)
-//    indexMd.textContents;
-//    var htmlHeadTemplate = d.file('index.html');
-//    d.matcherFile('index.html', contains(''));
-//    validateSandboxed(indexHtml, pathConfig.siteOutput);
-//    indexHtml.textContents.contains();
   });
 }

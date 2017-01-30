@@ -43,54 +43,38 @@ some: value
       test('can load data from yaml', () {
         schedule(() {
           var data = Data.loadFile(fileList[0].path, mustExist: true);
-          expect(data, completion(
-              asDataMap(
-                  allOf(
-                      hasLength(1),
-                      containsPair('some', 'val')
-                  )
-              )
-          ));
+          expect(
+              data,
+              completion(
+                  asDataMap(allOf(hasLength(1), containsPair('some', 'val')))));
         });
       });
 
       test('can load data from yml', () {
         schedule(() {
           var data = Data.loadFile(fileList[1].path, mustExist: true);
-          expect(data, completion(
-              asDataMap(
-                  allOf(
-                      hasLength(1),
-                      containsPair('some', 'val')
-                  )
-              )
-          ));
+          expect(
+              data,
+              completion(
+                  asDataMap(allOf(hasLength(1), containsPair('some', 'val')))));
         });
       });
       test('can load data from json', () {
         schedule(() {
           var data = Data.loadFile(fileList[2].path, mustExist: true);
-          expect(data, completion(
-              asDataMap(
-                  allOf(
-                      hasLength(1),
-                      containsPair('some', 'val')
-                  )
-              )
-          ));
+          expect(
+              data,
+              completion(
+                  asDataMap(allOf(hasLength(1), containsPair('some', 'val')))));
         });
       });
       test('can load data from md', () {
         schedule(() {
           var data = Data.loadFile(fileList[3].path, mustExist: true);
-          expect(data, completion(
-              asDataMap(
-                  allOf(
-                      hasLength(1),
-                      containsPair('some', 'val')
-                  )
-              )
-          ));
+          expect(
+              data,
+              completion(
+                  asDataMap(allOf(hasLength(1), containsPair('some', 'val')))));
         });
       });
     });
@@ -98,7 +82,6 @@ some: value
 }
 
 class _DataAsMapMatcher extends Matcher {
-
   final Matcher _matcher;
 
   const _DataAsMapMatcher([this._matcher]);
@@ -116,15 +99,14 @@ class _DataAsMapMatcher extends Matcher {
   }
 
   @override
-  Description describeMismatch(dynamic item,
-      Description mismatchDescription,
-      Map matchState,
-      bool verbose) {
+  Description describeMismatch(dynamic item, Description mismatchDescription,
+      Map matchState, bool verbose) {
     var matcher = matchState['matcher'];
-    matcher.describeMismatch(item.asMap,
-        mismatchDescription, matchState['state'], verbose);
+    matcher.describeMismatch(
+        item.asMap, mismatchDescription, matchState['state'], verbose);
     return mismatchDescription;
   }
 }
 
-Matcher asDataMap(Matcher matcher) => new _DataAsMapMatcher(wrapMatcher(matcher));
+Matcher asDataMap(Matcher matcher) =>
+    new _DataAsMapMatcher(wrapMatcher(matcher));

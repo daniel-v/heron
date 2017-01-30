@@ -13,11 +13,10 @@ import 'dart:mirrors';
 export 'sample_descriptors.dart';
 
 /// Produces the path to heron executable script
-String get _heronPath =>
-    p.normalize(p.join(p.dirname(currentMirrorSystem()
-        .findLibrary(#heron.test.utils)
-        .uri
-        .toFilePath()), '../'));
+String get _heronPath => p.normalize(p.join(
+    p.dirname(
+        currentMirrorSystem().findLibrary(#heron.test.utils).uri.toFilePath()),
+    '../'));
 
 /// Schedules heron execution in sandbox
 ScheduledProcess runHeron({Future inDirectory}) {
@@ -26,8 +25,8 @@ ScheduledProcess runHeron({Future inDirectory}) {
   }
   String heronExec = p.join(_heronPath, 'bin', 'heron.dart');
   return new ScheduledProcess.start(
-      Platform.resolvedExecutable, ['--checked', heronExec], workingDirectory: inDirectory,
-      description: 'Executing heron');
+      Platform.resolvedExecutable, ['--checked', heronExec],
+      workingDirectory: inDirectory, description: 'Executing heron');
 }
 
 _DeferredValue<String> _sandbox;
@@ -41,9 +40,8 @@ Future<String> get sandboxPath => _sandbox.future;
 void setupSandbox({bool cleanUpAfterTests: true}) {
   _sandbox = new _DeferredValue<String>();
   schedule(() {
-    String path = Directory.systemTemp
-        .createTempSync('heron_test_project_')
-        .path;
+    String path =
+        Directory.systemTemp.createTempSync('heron_test_project_').path;
     _sandbox.complete(path);
     d.defaultRoot = path;
   }, 'Creating sandbox');
@@ -62,10 +60,8 @@ void setupSandbox({bool cleanUpAfterTests: true}) {
 ///
 /// Let `s` be the the path of sandbox,`p` the `parent`, `n` the name of `desc`,
 /// then validation will run against the path: `s/p/n`
-Future validateSandboxed(Descriptor desc, String parent) =>
-    schedule(() async =>
-        desc.validateNow(p.join(await sandboxPath, p.normalize(parent)))
-    );
+Future validateSandboxed(Descriptor desc, String parent) => schedule(() async =>
+    desc.validateNow(p.join(await sandboxPath, p.normalize(parent))));
 
 /// Collection of enviroment variables that has a meaning to these tests
 abstract class EnvVars {
@@ -89,7 +85,8 @@ class _DeferredValue<T> {
 
   Future<T> get future => _completer.future;
 
-  Future<T> then(fn(T val), { Function onError }) => future.then(fn, onError: onError);
+  Future<T> then(fn(T val), {Function onError}) =>
+      future.then(fn, onError: onError);
 
   void complete([T value]) => _completer.complete(value);
 }

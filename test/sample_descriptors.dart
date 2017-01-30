@@ -26,22 +26,14 @@ import 'package:scheduled_test/descriptor.dart' as d;
 
 d.DirectoryDescriptor get sampleProject {
   return d.dir('src', [
-    d.dir('content', [
-      indexMd,
-      d.file('PAGE.yaml', ''),
-      d.file('SITE.yaml', 'root: /')
-    ]),
-    d.dir('static', [
-      robotsTxt,
-      runJs,
-      styleCss
-    ]),
-    d.dir('template', [
-      pageHtml
-    ]),
-
+    d.dir('content',
+        [indexMd, d.file('PAGE.yaml', ''), d.file('SITE.yaml', 'root: /')]),
+    d.dir('static', [robotsTxt, runJs, styleCss]),
+    d.dir('template', [pageHtml]),
     d.file('PAGE.yaml', 'article: false\nsitemap: false'),
-    d.file('SITE.yaml', '''
+    d.file(
+        'SITE.yaml',
+        '''
 url: 'https://example.com'
 name: 'Test project'
 
@@ -56,8 +48,9 @@ scripts:
 
 d.FileDescriptor get robotsTxt => d.file('robots.txt', '');
 
-d.Descriptor get pageHtml =>
-    d.file('page.html', '''
+d.Descriptor get pageHtml => d.file(
+    'page.html',
+    '''
 <!DOCTYPE html>
 <html>
     <head>
@@ -72,22 +65,25 @@ d.Descriptor get pageHtml =>
 </html>
 ''');
 
-d.Descriptor get runJs =>
-    d.file('run.js', '''
+d.Descriptor get runJs => d.file(
+    'run.js',
+    '''
 (function() {
     console.log('ran');
 })();
 ''');
 
-d.Descriptor get styleCss =>
-    d.file('style.css', '''
+d.Descriptor get styleCss => d.file(
+    'style.css',
+    '''
 body {
     background-color: lightgray;
 }
 ''');
 
-d.FileDescriptor get indexMd =>
-    d.file('index.md', '''
+d.FileDescriptor get indexMd => d.file(
+    'index.md',
+    '''
  ---
 title: 'Test page'
 url: /
